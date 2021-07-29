@@ -37,9 +37,10 @@ export default function Home({ response }) {
           rel="icon"
           type="image/png"
           sizes="38x38"
-          href="../assets/favicon.png"
+          href="../images/favicon.png"
         />
       </Head>
+      
       <p>Coodesh Challenge</p>
 
       {allPosts.data.map((post) => {
