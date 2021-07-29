@@ -1,1 +1,0 @@
-self.__BUILD_MANIFEST={__rewrites:{beforeFiles:[],afterFiles:[{source:"/wp-json/mc/v2/:path*"}],fallback:[]},"/":["static/chunks/pages/index-d978e7c2c571412d04fe.js"],"/_error":["static/chunks/pages/_error-abe41fcfdceb6768aa79.js"],sortedPages:["/","/_app","/_error"]},self.__BUILD_MANIFEST_CB&&self.__BUILD_MANIFEST_CB();
