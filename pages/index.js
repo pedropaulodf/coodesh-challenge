@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import styled, { createGlobalStyle } from "styled-components";
-import Head from "next/head";
+
+import GlobalStyles from "../styles/GlobalStyles";
+import Container from "../components/Container/Container";
+import HeaderSEO from "../components/HeaderSEO/HeaderSEO";
+import Header from "../components/Header/Header";
+import PostCard from "../components/PostCard/PostCard";
 
 import api from "../services/api";
 
@@ -25,38 +29,36 @@ export async function getStaticProps(context) {
 }
 
 export default function Home({ response }) {
+  
   const [allPosts, setAllPosts] = useState(response);
+
+  const metasData = {
+    title: "Home",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vestibulum vel velit sit amet scelerisque. Suspendisse in vestibulum sapien. Suspendisse nisl ipsum, hendrerit in odio ac, bibendum luctus nulla."
+  };
+
+
+  function handleCardButtonClick(postId){
+    console.log('card-button-clicked', postId);
+  }
 
   return (
     <Container>
-      <GlobalStyle />
-      <Head>
-        <title>Translation, Inc</title>
-        <meta property="og:title" content="Translation, Inc" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="38x38"
-          href="../images/favicon.png"
-        />
-      </Head>
-      
-      <p>Coodesh Challenge</p>
+      <GlobalStyles />
+      <HeaderSEO metasData={metasData}/>
+      <Header />
 
-      {allPosts.data.map((post) => {
-        return <div key={post.id}>{post.title}</div>;
-      })}
+      <h1>Welcome to the Translation, Inc Blog!</h1>
+
+      <p style={{textAlign: 'right'}}>{allPosts.data.length === 0 ? 'No posts finded, remake your search :(' : allPosts.data.length === 1 ? '1 post finded' : `${allPosts.data.length} posts finded` }</p>
+
+      <div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "10px 10px"}}>
+        {allPosts.data.map((post) => {
+          return (
+            <PostCard key={post.id} postData={post} onCardButtonClick={handleCardButtonClick}/>
+          );
+        })}
+      </div>
     </Container>
   );
 }
-
-// Styled Components
-const GlobalStyle = createGlobalStyle`
- * {
-   font-family: sans-serif;
- }
-`;
-
-const Container = styled.div`
-  text-align: center;
-`;

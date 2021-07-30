@@ -1,5 +1,8 @@
-node_modules
+# build output
+.next
 
+# Vercel
 .vercel
 
-.next
+# dependencies
+node_modules
