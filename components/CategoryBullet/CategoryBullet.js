@@ -6,7 +6,7 @@ export default function CategoryBullet({data, quantityFirstLetters}) {
     <div style={{display: "flex", flexDirection: "row"}}>
       {data.map(category => {
         return (
-          <BulletContainer>
+          <BulletContainer key={category.id}>
             <p>{quantityFirstLetters > 0 ? category.name.substring(0, quantityFirstLetters) : category.name}</p>
           </BulletContainer>
         )

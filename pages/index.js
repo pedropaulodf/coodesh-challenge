@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import GlobalStyles from "../styles/GlobalStyles";
 import Container from "../components/Container/Container";
@@ -11,9 +11,9 @@ import styled from "styled-components";
 import api from "../services/api";
 
 export async function getStaticProps(context) {
+  
   // O que eu passar aqui, ele vai virar SEO
-  const response = await api
-    .get("posts", {params: {page: '3'}})
+  const response = await api.get("posts", { params: { page: '1' }})
     .then((response) => {
       return response.data;
     })
@@ -32,40 +32,115 @@ export async function getStaticProps(context) {
 
 export default function Home({ response }) {
   
-  const [allPosts, setAllPosts] = useState(response);
+  const [allPosts, setAllPosts] = useState();
+  const [loading, setLoading] = useState(true);
+
+  const [searchParams, setsearchParams] = useState({params: { page: '1'}});
+  const [searchText, setSearchText] = useState(false);
+  const [mostRelevantPosts, setMostRelevantPosts] = useState(false);
 
   const metasData = {
     title: "Home",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vestibulum vel velit sit amet scelerisque. Suspendisse in vestibulum sapien. Suspendisse nisl ipsum, hendrerit in odio ac, bibendum luctus nulla."
   };
 
+
+  useEffect(()=> {
+    setAllPosts(response);
+    setLoading(false);
+  },[])
+
+  useEffect(() => {
+    searchPosts()
+  }, [searchParams])
+
+  async function searchPosts(params){
+
+    setLoading(true);
+
+    console.log(searchParams);
+
+    // O que eu passar aqui, ele vai virar SEO
+    await api.get("posts", searchParams)
+      .then((response) => {
+        setAllPosts(response.data);
+        setLoading(false);
+        return;
+      })
+      .catch((error) => {
+        console.log(error);
+        return false;
+      });
+  }
+
+
+
   function handleCardButtonClick(postId){
     console.log('card-button-clicked', postId);
   }
+
+  function handleSearch(search){
+    
+    if(search.error){
+      setSearchText('');
+      console.log(search.error);
+      return;
+    }
+    
+    if(search.searchString.length > 0){
+      setsearchParams({params: {...searchParams.params, search: search.searchString }});
+    } else {
+      delete searchParams.params.search
+      setsearchParams({params: {...searchParams.params }});
+    }
+
+    setSearchText(search.searchString);
+    // searchPosts();
+  }
+
+  function handleSwitchAction(switchChecked){
+    
+    if(switchChecked){
+      setsearchParams({params: {...searchParams.params, orderby: 'relevance' }});
+      // searchPosts({params: {...searchParams.params, orderby: 'relevance' }});
+    } else {
+      delete searchParams.params.orderby
+      setsearchParams({params: {...searchParams.params }});
+    }
+    setMostRelevantPosts(switchChecked);
+    // searchPosts({params: {...searchParams.params }});
+  }
+
+  // function handleSearch(search){
+  //   searchPosts(search);
+  // }
 
   return (
     <Container>
       <GlobalStyles />
       <HeaderSEO metasData={metasData}/>
-      <Header />
+      <Header searchData={handleSearch} switchAction={handleSwitchAction}/>
 
       <HeadTitle>Welcome to the Translation, Inc Blog!</HeadTitle>
 
-      {allPosts.data.length === 0 
-      ? (<NoPostsFindedMessage>Nenhum post encontrado!</NoPostsFindedMessage>) 
-      : (
-        <>
-          <p style={{textAlign: 'right'}}>{allPosts.data.length === 0 ? 'No posts finded, remake your search :(' : allPosts.data.length === 1 ? '1 post finded' : `${allPosts.data.length} posts finded` }</p>
+      {!loading 
+      ? allPosts.data.length === 0 
+        ? (<NoPostsFindedMessage>Nenhum post encontrado! #2</NoPostsFindedMessage>) 
+        : (
+          <>
+            <p style={{textAlign: 'right'}}>{allPosts.data.length === 0 ? 'No posts finded, remake your search :(' : allPosts.data.length === 1 ? '1 post finded' : `${allPosts.data.length} posts finded` }</p>
 
-          <GridPosts>
-            {allPosts.data.map((post) => {
-              return (
-                <PostCard key={post.id} postData={post} onCardButtonClick={handleCardButtonClick}/>
-              );
-            })}
-          </GridPosts>
-        </>
-      )
+            <GridPosts>
+              {allPosts.data.map((post) => {
+                return (
+                  <PostCard key={post.id} postData={post} onCardButtonClick={handleCardButtonClick}/>
+                );
+              })}
+            </GridPosts>
+          </>
+        )
+      : (<NoPostsFindedMessage>Carregando...</NoPostsFindedMessage>) 
+      
       }
      
     </Container>

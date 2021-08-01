@@ -8,7 +8,7 @@ import GlobalStyles from '../../styles/GlobalStyles'
 
 import parse from 'html-react-parser';
 import api from '../../services/api'
-import { PostAuthorProfileContainer, PostAuthorName, PostAuthorPicture, PostContainer, PostContent, PostDateModified, PostDatePublished, PostDateSection, PostHeadline, PostSingleGrid, PostThumbnail, PostTitle, PostTopInfoSection, PostAuthorProfilePicture, PostAuthorProfileName, PostAuthorProfileDescription, PostAuthorProfileJob } from '../../styles/SingleStyles'
+import { PostAuthorProfileContainer, PostAuthorName, PostAuthorPicture, PostContainer, PostContent, PostDateModified, PostDatePublished, PostDateSection, PostHeadline, PostSingleGrid, PostThumbnail, PostTitle, PostTopInfoSection, PostAuthorProfilePicture, PostAuthorProfileName, PostAuthorProfileDescription, PostAuthorProfileJob, PostTags, PostBibliography } from '../../styles/SingleStyles'
 
 export async function getServerSideProps({params}) {
   
@@ -62,8 +62,8 @@ export default function Single({ response }) {
             {parse(response.content)}
           </PostContent>
 
-          <p>tags: {response.tags.length}</p>
-          <p>bibliography: {response.bibliography}</p>
+          <PostTags>Tags: {response.tags.length !== 0 ? <CategoryBullet data={response.tags} /> : 'not have tags'} </PostTags>
+          <PostBibliography>Bibliography: {response.bibliography ? parse(response.bibliography) : 'not have'}</PostBibliography>
         </PostContainer>
 
         <PostAuthorProfileContainer>

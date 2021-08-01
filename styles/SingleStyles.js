@@ -94,10 +94,11 @@ export const PostAuthorName = styled.p`
 
 export const PostThumbnail = styled.img`
   width: 100%;
-  height: 300px;
+  height: 400px;
   border-radius: 10px;
   margin-bottom: 20px;
   box-shadow: 3px 6px 13px 0px #cccccc;
+  object-fit: cover;
   /* background-size: cover; */
   /* background-size: contain; */
 `;
@@ -107,13 +108,7 @@ export const PostContent = styled.div`
   line-height: 1.4em;
   margin-bottom: 20px;
 
-  figure > img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-    margin: 18px 0px;
-  }
-  p > img {
+  * > img {
     width: 100%;
     height: auto;
     border-radius: 4px;
@@ -146,6 +141,57 @@ export const PostContent = styled.div`
 
 `;
 
+export const PostTags = styled.p`
+  display: flex;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-bottom: 30px;
+  margin-top: 40px;
+  border-top: 2px dashed #d2d2d2;
+  border-bottom: 2px dashed #d2d2d2;
+  padding: 15px 0px;
+`;
+
+export const PostBibliography = styled.p`
+  margin-top: 20px;
+  font-size: 0.8em;
+  line-height: 1.4em;
+  margin-bottom: 20px;
+
+  figure > img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 18px 0px;
+  }
+
+  p {
+    margin: 8px 0px;
+  }
+
+  h2 {
+    margin-top: 20px;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    margin-top: 16px;
+    margin-bottom: 14px;
+  }
+
+  ul {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  li{
+    margin: 10px 0px;
+    list-style-type: circle;
+  }
+`;
+
+/* Author Profile */
 export const PostAuthorProfileContainer = styled.div`
   width: 100%;
   padding: 16px;
@@ -179,7 +225,7 @@ export const PostAuthorProfileJob = styled.p`
 
 export const PostAuthorProfileDescription = styled.p`
   margin-top: 20px;
-  font-size: 1em;
+  font-size: .9em;
   line-height: 1.4em;
   margin-bottom: 20px;
 

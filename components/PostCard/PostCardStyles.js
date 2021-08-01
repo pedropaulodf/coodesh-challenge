@@ -23,6 +23,8 @@ export const StyledCardDate = styled.p`
 export const StyledCardThumbnail = styled.img`
   width: 100%;
   border-radius: 10px;
+  height: 190px;
+  object-fit: cover;
 `;
 
 export const StyledCardTitle = styled.h2`
@@ -33,4 +35,10 @@ export const StyledCardTitle = styled.h2`
 export const StyledCardSubText = styled.p`
   font-size: 1em;
   margin-bottom: 18px;
+  width: 100%;
+  line-height: 1.2em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
 `;

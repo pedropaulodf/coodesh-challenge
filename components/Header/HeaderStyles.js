@@ -41,3 +41,27 @@ export const StyledContainer = styled.div`
   }
   
 `;
+
+export const StyledLogo = styled.img`
+  width: 100%;
+  cursor: pointer;
+`;
+
+export const StyledErrorMessage = styled.p`
+  position: absolute;
+  color: red;
+  font-size: 0.7em;
+`;
+
+export const StyledMostRelevantBox = styled.div`
+  border: 2px solid #d2d2d2;
+  border-radius: 8px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+`;
+
+export const StyledMostRelevantBoxText = styled.p`
+  font-size: 1em;
+  margin-right: 14px;
+`;
