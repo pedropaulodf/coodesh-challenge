@@ -14,7 +14,10 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "cssnano-simple": "^3.0.0",
+    "html-react-parser": "^1.2.7",
     "next": "^11.0.1",
+    "postcss": "^8.3.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "styled-components": "^5.3.0"

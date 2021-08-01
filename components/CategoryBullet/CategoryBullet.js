@@ -1,10 +1,16 @@
 import React from 'react'
 import { BulletContainer } from './CategoryBulletStyles'
 
-export default function CategoryBullet({name, quantityFirstLetters}) {
+export default function CategoryBullet({data, quantityFirstLetters}) {
   return (
-    <BulletContainer>
-      <p>{quantityFirstLetters > 0 ? name.substring(0, quantityFirstLetters) : name}</p>
-    </BulletContainer>
+    <div style={{display: "flex", flexDirection: "row"}}>
+      {data.map(category => {
+        return (
+          <BulletContainer>
+            <p>{quantityFirstLetters > 0 ? category.name.substring(0, quantityFirstLetters) : category.name}</p>
+          </BulletContainer>
+        )
+      })}
+    </div>
   )
 }

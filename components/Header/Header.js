@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react'
 import InputSearch from '../InputSearch/InputSearch'
 
@@ -16,7 +17,9 @@ export default function Header() {
   return (
     <StyledContainer>
       <div>
-        <img src="../images/logo.png" alt="" />
+        <Link href="/">
+          <img src="../images/logo.png" alt="" />
+        </Link>
       </div>
       <div><p>Most Relevant</p></div>
       <div>

@@ -12,7 +12,12 @@ export const StyledCardDateCategory = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   margin: 8px 0px;
+`;
+
+export const StyledCardDate = styled.p`
+  font-size: 0.8em;
 `;
 
 export const StyledCardThumbnail = styled.img`

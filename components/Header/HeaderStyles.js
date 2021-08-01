@@ -16,7 +16,7 @@ export const StyledContainer = styled.div`
   justify-content: space-between;
   align-items: flex-end;
 
-  margin: 20px 0px;
+  margin: 20px 0px 50px 0px;
 
   @media(min-width: 1024px) {
     /* padding: 0px 20px; */
@@ -31,6 +31,8 @@ export const StyledContainer = styled.div`
   @media(max-width: 767px) {
     /* padding: 0px 20px; */
     /* background-color: green; */
+    flex-direction: column;
+    align-items: center;
   }
   
   @media(max-width: 340px) {

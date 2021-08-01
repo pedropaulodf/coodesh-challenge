@@ -16,11 +16,11 @@ export default function InputSearch({onTextChange, onButtonSearchClick}) {
   }
 
   return (
-    <div style={{}}>
+    <>
       <StyledInput type="text" placeholder="Search here:" defaultValue={inputVal} onChange={v => handleTextChange(v.target.value)}/>
       <StyledButton onClick={handleButtonClick}>
         <img src="../images/search.png" alt="Do search" width="20px"/>
       </StyledButton>
-    </div>
+    </>
   );
 }

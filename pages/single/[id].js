@@ -1,14 +1,87 @@
 import React from 'react'
 
-import { useRouter } from 'next/router'
+import Header from '../../components/Header/Header'
+import HeaderSEO from '../../components/HeaderSEO/HeaderSEO'
+import Container from '../../components/Container/Container'
+import CategoryBullet from '../../components/CategoryBullet/CategoryBullet'
+import GlobalStyles from '../../styles/GlobalStyles'
 
-export default function Single() {
+import parse from 'html-react-parser';
+import api from '../../services/api'
+import { PostAuthorProfileContainer, PostAuthorName, PostAuthorPicture, PostContainer, PostContent, PostDateModified, PostDatePublished, PostDateSection, PostHeadline, PostSingleGrid, PostThumbnail, PostTitle, PostTopInfoSection, PostAuthorProfilePicture, PostAuthorProfileName, PostAuthorProfileDescription, PostAuthorProfileJob } from '../../styles/SingleStyles'
+
+export async function getServerSideProps({params}) {
   
-  const router = useRouter()
-  const { id } = router.query
+  // O que eu passar aqui, ele vai virar SEO
+  const response = await api
+    .get(`posts/${params.id}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error); 
+      return false;
+    });
 
+  // will be passed to the page component as props
+  return {
+    props: {
+      response,
+    },
+  };
+}
+
+export default function Single({ response }) {
+  
   return (
-    <p>Post Id: {id}</p>
+    <Container>
+      <GlobalStyles />
+      <HeaderSEO metasData={response.metas} headType="post-single"/>
+      <Header />
+
+      <PostSingleGrid>
+
+        <PostContainer>
+          <PostTitle>{response.title}</PostTitle>
+          <PostHeadline>{response.headline}</PostHeadline>
+          <PostTopInfoSection>
+            <PostDateSection>
+              <PostDatePublished>{(new Date(response.published)).toLocaleDateString()}</PostDatePublished>
+              
+              <PostAuthorPicture src={response.author.picture} alt={response.title} />
+              <PostAuthorName>{response.author.name}</PostAuthorName>
+
+              <PostDateModified> • Modified {(new Date(response.modified)).toLocaleDateString()}</PostDateModified>
+            </PostDateSection>
+            <CategoryBullet data={response.categories}  />
+          </PostTopInfoSection>
+          
+          <PostThumbnail src={response.featured_media.thumbnail} alt="" />
+
+          <PostContent>
+            {parse(response.content)}
+          </PostContent>
+
+          <p>tags: {response.tags.length}</p>
+          <p>bibliography: {response.bibliography}</p>
+        </PostContainer>
+
+        <PostAuthorProfileContainer>
+          <div style={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row'}}>
+            <PostAuthorProfilePicture src={response.author.picture} alt={response.title} />
+            <div style={{display: 'flex', alignItems: 'flex-start', flexDirection: 'column'}}>
+              <PostAuthorProfileName>{response.author.name}</PostAuthorProfileName>
+              <PostAuthorProfileJob>{response.author.profession}</PostAuthorProfileJob>
+            </div>
+          </div>
+          
+            {response.author.description !== "" ? <PostAuthorProfileDescription>{parse(response.author.description)}</PostAuthorProfileDescription> : ''}
+      
+        </PostAuthorProfileContainer>
+
+      </PostSingleGrid>
+
+    </Container>
   )
 
 }
