@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 
 export default function PostCard({postData, onCardButtonClick}) {
-
+  
   const [dateFormatted, setDateFormatted] = useState('');
 
   function handleButtonClick(postId){
@@ -22,13 +22,10 @@ export default function PostCard({postData, onCardButtonClick}) {
   return (
     <StyledCardContainer>
 
-      <Link href={{
-        pathname: `/single/${postData.id}`,
-        query: { slug: postData.slug }
-        }} >
+    {postData.featured_media
+      ?
         <StyledCardThumbnail src={postData.featured_media.thumbnail} alt={postData.title} />
-
-      </Link>
+      : null}
 
       <StyledCardDateCategory>
 

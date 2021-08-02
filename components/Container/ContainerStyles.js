@@ -8,6 +8,7 @@ export const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   position: relative;
+  margin-bottom: 50px;
   
   @media(min-width: 1024px) {
     padding: 0px 20px;

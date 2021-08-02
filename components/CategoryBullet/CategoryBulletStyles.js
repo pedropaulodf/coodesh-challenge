@@ -4,7 +4,7 @@ export const BulletContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 20px;
+  height: auto;
   padding: 4px 10px;
   border: 2px solid #ededed;
   background-color: #f4f4f4;

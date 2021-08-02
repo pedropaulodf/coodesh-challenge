@@ -9,31 +9,38 @@ import PostCard from "../components/PostCard/PostCard";
 import styled from "styled-components";
 
 import api from "../services/api";
+import Pagination from "../components/Pagination/Pagination";
+import Loading from "../components/Loading/Loading";
 
-export async function getStaticProps(context) {
+const PAGINATION_LIMIT = 12;
+
+// export async function getStaticProps(context) {
   
-  // O que eu passar aqui, ele vai virar SEO
-  const response = await api.get("posts", { params: { page: '1' }})
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-      return false;
-    });
+//   // O que eu passar aqui, ele vai virar SEO
+//   const response = await api.get("posts", { params: { page: '1' }})
+//     .then((response) => {
+//       return response.data;
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       return false;
+//     });
 
-  // will be passed to the page component as props
-  return {
-    props: {
-      response,
-    },
-  };
-}
+//   // will be passed to the page component as props
+//   return {
+//     props: {
+//       response,
+//     },
+//   };
+// }
 
-export default function Home({ response }) {
+export default function Home() {
   
   const [allPosts, setAllPosts] = useState();
   const [loading, setLoading] = useState(true);
+
+  const [offset, setOffset] = useState(0);
+  const [actualPage, setActualPage] = useState(1);
 
   const [searchParams, setsearchParams] = useState({params: { page: '1'}});
   const [searchText, setSearchText] = useState(false);
@@ -46,13 +53,17 @@ export default function Home({ response }) {
 
 
   useEffect(()=> {
-    setAllPosts(response);
+    setAllPosts();
     setLoading(false);
   },[])
 
   useEffect(() => {
     searchPosts()
   }, [searchParams])
+
+  useEffect(() => {
+    console.log(actualPage);
+  }, [actualPage])
 
   async function searchPosts(params){
 
@@ -73,10 +84,8 @@ export default function Home({ response }) {
       });
   }
 
-
-
   function handleCardButtonClick(postId){
-    console.log('card-button-clicked', postId);
+    // console.log('card-button-clicked', postId);
   }
 
   function handleSearch(search){
@@ -115,6 +124,11 @@ export default function Home({ response }) {
   //   searchPosts(search);
   // }
 
+  function handlePaginationClick(page){
+    setsearchParams({params: {...searchParams.params, page: page }});
+    setActualPage(page);
+  }
+
   return (
     <Container>
       <GlobalStyles />
@@ -128,21 +142,41 @@ export default function Home({ response }) {
         ? (<NoPostsFindedMessage>Nenhum post encontrado! #2</NoPostsFindedMessage>) 
         : (
           <>
-            <p style={{textAlign: 'right'}}>{allPosts.data.length === 0 ? 'No posts finded, remake your search :(' : allPosts.data.length === 1 ? '1 post finded' : `${allPosts.data.length} posts finded` }</p>
+  
+            <p style={{textAlign: 'right'}}>{allPosts.data.length === 1 ? '1 post finded' : `${allPosts.data.length} posts finded` }</p>
+
+            <Pagination 
+              limit={PAGINATION_LIMIT} 
+              total={allPosts.pages} 
+              offset={offset}
+              setOffset={setOffset}
+              actualPage={handlePaginationClick}
+            />
 
             <GridPosts>
               {allPosts.data.map((post) => {
                 return (
-                  <PostCard key={post.id} postData={post} onCardButtonClick={handleCardButtonClick}/>
+                  <PostCard 
+                  key={post.id} 
+                  postData={post} 
+                  onCardButtonClick={handleCardButtonClick}
+                  />
                 );
               })}
             </GridPosts>
+
+            <Pagination 
+              limit={PAGINATION_LIMIT} 
+              total={allPosts.pages} 
+              offset={offset}
+              setOffset={setOffset}
+              actualPage={handlePaginationClick}
+            />
+            
           </>
         )
-      : (<NoPostsFindedMessage>Carregando...</NoPostsFindedMessage>) 
-      
-      }
-     
+      : (<Loading>Carregando...</Loading>) }
+
     </Container>
   );
 }

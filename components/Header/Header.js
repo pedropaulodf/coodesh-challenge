@@ -5,7 +5,7 @@ import Switch from "react-switch";
 
 import { StyledContainer, StyledErrorMessage, StyledLogo, StyledMostRelevantBox, StyledMostRelevantBoxText } from './HeaderStyles'
 
-export default function Header({searchData, switchAction}) {
+export default function Header({searchData, switchAction, onlyLogo = false}) {
 
   const [switchChecked, setSwitchChecked] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -47,27 +47,38 @@ export default function Header({searchData, switchAction}) {
           <StyledLogo src="../images/logo.png" alt="" />
         </Link>
       </div>
-      <StyledMostRelevantBox>
-        <StyledMostRelevantBoxText>Show Most Relevant</StyledMostRelevantBoxText> 
-        <Switch 
-          onChange={handleSwitch} 
-          checked={switchChecked} 
-          onColor="#c9e6c4"
-          onHandleColor="#449e5c"
-          handleDiameter={16}
-          uncheckedIcon={false}
-          checkedIcon={false}
-          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-          height={10}
-          width={30}
-          className="react-switch"
-          id="material-switch"
-        />
-      </StyledMostRelevantBox>
+      {
+        !onlyLogo && (
+          <StyledMostRelevantBox>
+          <StyledMostRelevantBoxText>Most Relevant Posts</StyledMostRelevantBoxText> 
+          <Switch 
+            onChange={handleSwitch} 
+            checked={switchChecked} 
+            onColor="#c9e6c4"
+            onHandleColor="#449e5c"
+            handleDiameter={16}
+            uncheckedIcon={false}
+            checkedIcon={false}
+            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+            height={10}
+            width={30}
+            className="react-switch"
+            id="material-switch"
+          />
+        </StyledMostRelevantBox>
+        )
+      }
+      
       <div>
-        <InputSearch onTextChange={handleSearchValue} onButtonSearchClick={handleSearchButtonClick}/>
-        <StyledErrorMessage>{errorText}</StyledErrorMessage>
+
+        {!onlyLogo && (
+          <>
+            <InputSearch onTextChange={handleSearchValue} onButtonSearchClick={handleSearchButtonClick}/>
+            <StyledErrorMessage>{errorText}</StyledErrorMessage>
+          </>
+        )}
+        
       </div>
     </StyledContainer>
   )

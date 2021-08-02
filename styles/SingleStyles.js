@@ -129,7 +129,7 @@ export const PostContent = styled.div`
     margin-bottom: 14px;
   }
 
-  ul {
+  ul,ol {
     margin-left: 30px;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -150,6 +150,7 @@ export const PostTags = styled.p`
   border-top: 2px dashed #d2d2d2;
   border-bottom: 2px dashed #d2d2d2;
   padding: 15px 0px;
+  align-items: center;
 `;
 
 export const PostBibliography = styled.p`
