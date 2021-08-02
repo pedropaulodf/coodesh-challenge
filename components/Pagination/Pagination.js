@@ -19,14 +19,14 @@ export default function Pagination({limit, total, offset, setOffset, actualPage}
   return (
     <StyledUl>
 
-      <li>
+      {/* <li>
         <StyledPaginationButton 
           onClick={() => onPageChange(1)}
           disabled={currentPage === 1}
         >
           Primeiro
         </StyledPaginationButton>
-      </li>
+      </li> */}
 
       <li>
         <StyledPaginationButton 
@@ -60,14 +60,14 @@ export default function Pagination({limit, total, offset, setOffset, actualPage}
         </StyledPaginationButton>
       </li>
 
-      <li>
+      {/* <li>
         <StyledPaginationButton
           onClick={() => onPageChange(total)}
           disabled={currentPage === total}
         >
           Último
         </StyledPaginationButton>
-      </li>
+      </li> */}
 
     </StyledUl>
   )

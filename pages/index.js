@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import GlobalStyles from "../styles/GlobalStyles";
 import Container from "../components/Container/Container";
-import HeaderSEO from "../components/HeaderSEO/HeaderSEO";
 import Header from "../components/Header/Header";
 import PostCard from "../components/PostCard/PostCard";
 
@@ -11,6 +10,7 @@ import styled from "styled-components";
 import api from "../services/api";
 import Pagination from "../components/Pagination/Pagination";
 import Loading from "../components/Loading/Loading";
+import Head from "next/head";
 
 const PAGINATION_LIMIT = 12;
 
@@ -61,27 +61,28 @@ export default function Home() {
     searchPosts()
   }, [searchParams])
 
-  useEffect(() => {
-    console.log(actualPage);
-  }, [actualPage])
+  // useEffect(() => {
+  //   console.log(actualPage);
+  // }, [actualPage])
 
   async function searchPosts(params){
 
     setLoading(true);
 
-    console.log(searchParams);
+    // console.log(searchParams);
 
     // O que eu passar aqui, ele vai virar SEO
     await api.get("posts", searchParams)
-      .then((response) => {
-        setAllPosts(response.data);
-        setLoading(false);
-        return;
-      })
-      .catch((error) => {
-        console.log(error);
-        return false;
-      });
+    .then((response) => {
+      setAllPosts(response.data);
+      setLoading(false);
+      return;
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    });
+
   }
 
   function handleCardButtonClick(postId){
@@ -132,8 +133,15 @@ export default function Home() {
   return (
     <Container>
       <GlobalStyles />
-      <HeaderSEO metasData={metasData}/>
+      {/* <HeaderSEO metasData={metasData}/> */}
       <Header searchData={handleSearch} switchAction={handleSwitchAction}/>
+
+      <Head>
+        <title>{metasData.title ? `${metasData.title} | Translation, Inc`: 'Translation, Inc'}</title>
+        <meta property="og:title" content={metasData.title ? `${metasData.title} | Translation, Inc`: 'Translation, Inc'} />
+        <meta name="description" content={metasData.description} />
+        <link rel="icon" type="image/png" sizes="38x38" href="../images/favicon.png"/>
+      </Head>
 
       <HeadTitle>Welcome to the Translation, Inc Blog!</HeadTitle>
 

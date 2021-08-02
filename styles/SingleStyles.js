@@ -41,7 +41,7 @@ export const PostContainer = styled.div`
   border-radius: 8px;
 `;
 
-export const PostTitle = styled.h2`
+export const PostTitle = styled.h1`
   font-family: 'Hammersmith One', sans-serif;
   margin: 10px 0px 10px 0px;
   font-size: 2em;

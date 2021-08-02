@@ -1,122 +1,319 @@
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/dist/client/router'
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/dist/client/router";
 
-import Header from '../../components/Header/Header'
-import HeaderSEO from '../../components/HeaderSEO/HeaderSEO'
-import Container from '../../components/Container/Container'
-import GlobalStyles from '../../styles/GlobalStyles'
-import Loading from '../../components/Loading/Loading'
-import CategoryBullet from '../../components/CategoryBullet/CategoryBullet'
+import Header from "../../components/Header/Header";
+import Container from "../../components/Container/Container";
+import GlobalStyles from "../../styles/GlobalStyles";
+import Loading from "../../components/Loading/Loading";
+import CategoryBullet from "../../components/CategoryBullet/CategoryBullet";
 
-import parse from 'html-react-parser';
-import api from '../../services/api'
+import parse from "html-react-parser";
+import api from "../../services/api";
 
-import { PostAuthorProfileContainer, PostAuthorName, PostAuthorPicture, PostContainer, PostContent, PostDateModified, PostDatePublished, PostDateSection, PostHeadline, PostSingleGrid, PostThumbnail, PostTitle, PostTopInfoSection, PostAuthorProfilePicture, PostAuthorProfileName, PostAuthorProfileDescription, PostAuthorProfileJob, PostTags, PostBibliography } from '../../styles/SingleStyles'
+import {
+  PostAuthorProfileContainer,
+  PostAuthorName,
+  PostAuthorPicture,
+  PostContainer,
+  PostContent,
+  PostDateModified,
+  PostDatePublished,
+  PostDateSection,
+  PostHeadline,
+  PostSingleGrid,
+  PostThumbnail,
+  PostTitle,
+  PostTopInfoSection,
+  PostAuthorProfilePicture,
+  PostAuthorProfileName,
+  PostAuthorProfileDescription,
+  PostAuthorProfileJob,
+  PostTags,
+  PostBibliography,
+} from "../../styles/SingleStyles";
+import Head from "next/head";
 
-export default function Single() {
-  
+export async function getStaticPaths() {
+
+  // const paths = [];
+  // for (let i = 0; i <= 50000; i++) {
+  //   paths.push({ params: { id: String(i) } });
+  // }
+
+  return {
+    paths: [
+      {
+        params: {
+          id: '265206'
+        }
+      },
+      {
+        params: {
+          id: '410057'
+        }
+      }
+    ],
+    fallback: 'blocking', // See the "fallback" section below
+  };
+}
+
+export async function getStaticProps(context) {
+  const id = context.params.id;
+  // console.log(id);
+  // O que eu passar aqui, ele vai virar SEO
+  // const response = await api.get(`posts/${id}`)
+  const response = await api
+  .get(`posts/${id}`)
+  .then((response) => {
+    // console.log(response);
+    return response.data;
+  })
+  .catch((error) => {
+    console.log(error);
+    return false;
+  });
+
+  // if (response.status === "404") {
+  //   return { notFound: true };
+  // }
+
+  return {
+    props: {
+      response,
+    }, // will be passed to the page component as props
+  };
+}
+
+// export async function getServerSideProps(context) {
+
+//   const id = context.query.id;
+
+//   const response = await api
+//     .get(`posts/${id}`)
+//     .then((response) => {
+//       // console.log(response);
+//       return response.data;
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       return false;
+//     });
+
+//   return {
+//     props: {
+//       response,
+//     }, // will be passed to the page component as props
+//   };
+
+// }
+
+export default function Single({response}) {
+  // console.log(response);
+
   const router = useRouter();
-  const id = router.query.id;
+  // const id = props.id;
 
-  const [postData, setPostData] = useState({});
-  const [loading, setLoading] = useState(true);
+  if (router.isFallback) {
+    return <h1>Loading...</h1>;
+  }
 
-  useEffect(() => {
+  // const [postData, setPostData] = useState({});
+  // const [loading, setLoading] = useState(true);
 
-    const getData = async () => {
+  // useEffect(() => {
+    
+    // setPostData(response);
+    // setLoading(false);
 
-      setLoading(true);
-      
-      // O que eu passar aqui, ele vai virar SEO
-      await api.get(`posts/${id}`)
-      .then((response) => {
-        console.log(response.data);
-        setPostData(response.data);
-        setLoading(false);
-        return response.data;
-      })
-      .catch((error) => {
-        console.log(error); 
-        return false;
-      });
+    // if(response.status !== '404'){
+    //   setLoading(false);
+    // }
 
-    }
-    getData();
-
-  }, [])
-
+    // const getData = async () => {
+    //   // O que eu passar aqui, ele vai virar SEO
+    //   await api.get(`posts/${id}`)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     setPostData(response.data);
+    //     setLoading(false);
+    //     return;
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     return false;
+    //   });
+    // }
+    // getData();
+  // }, []);
 
   return (
     <Container>
       <GlobalStyles />
-      
+
       <Header onlyLogo />
 
-      {loading 
-      ? null
-      : <HeaderSEO metasData={postData.metas} headType="post-single"/>
-      }
-      
-      {!loading 
-      ? <PostSingleGrid>
+        <Head>
+          <title>{`${response.metas["title"]} | Translation, Inc`}</title>
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="38x38"
+            href="../images/favicon.png"
+          />
 
+          <meta name="ampUrl" content={response.metas["ampUrl"]} />
+          <meta
+            name="article:author"
+            content={response.metas["article:author"]}
+          />
+          <meta
+            name="article:publisher"
+            content={response.metas["article:publisher"]}
+          />
+          <meta
+            name="article:section"
+            content={response.metas["article:section"]}
+          />
+          {/* <meta name="article:tag" content={response.metas["article:tag"]} /> */}
+          <meta name="canonical" content={response.metas["canonical"]} />
+          <meta name="description" content={response.metas["description"]} />
+          <meta name="title" content={response.metas["title"]} />
+          <meta name="twitter:card" content={response.metas["twitter:card"]} />
+          <meta
+            name="twitter:creator"
+            content={response.metas["twitter:creator"]}
+          />
+          <meta name="twitter:site" content={response.metas["twitter:site"]} />
+          <meta
+            property="og:description"
+            content={response.metas["og:description"]}
+          />
+          <meta property="og:image" content={response.metas["og:image"]} />
+          <meta
+            property="og:image:alt"
+            content={response.metas["og:image:alt"]}
+          />
+          <meta
+            property="og:image: height"
+            content={response.metas["image: height"]}
+          />
+          <meta
+            property="og:image:secure_url"
+            content={response.metas["og:image:secure_url"]}
+          />
+          <meta
+            property="og:image: width"
+            content={response.metas["og:image: width"]}
+          />
+          <meta property="og:locale" content={response.metas["og:locale"]} />
+          <meta
+            property="og:site_name"
+            content={response.metas["og:site_name"]}
+          />
+          <meta
+            property="og:title"
+            content={`${response.metas["og:title"]} | Translation, Inc`}
+          />
+          <meta property="og:type" content={response.metas["og:type"]} />
+        </Head>
+        
+        <PostSingleGrid>
           <PostContainer>
-            <PostTitle>{postData.title}</PostTitle>
-            {
-              postData.headline 
-              ? <PostHeadline>{postData.headline}</PostHeadline>
-              : null
-            }
-            
+            <PostTitle>{response.title}</PostTitle>
+            {response.headline ? (
+              <PostHeadline>{response.headline}</PostHeadline>
+            ) : null}
+
             <PostTopInfoSection>
               <PostDateSection>
-                <PostDatePublished>{(new Date(postData.published)).toLocaleDateString()}</PostDatePublished>
-                
-                <PostAuthorPicture src={postData.author.picture ? postData.author.picture : 'https://beta.mejorconsalud.com/wp-content/themes/base-deploy/assets/img/about-us/no_profile.png'} alt={postData.title} />
-                <PostAuthorName>{postData.author.name}</PostAuthorName>
+                <PostDatePublished>
+                  {new Date(response.published).toLocaleDateString()}
+                </PostDatePublished>
 
-                <PostDateModified> • Modified {(new Date(postData.modified)).toLocaleDateString()}</PostDateModified>
+                <PostAuthorPicture
+                  src={
+                    response.author.picture
+                      ? response.author.picture
+                      : "https://beta.mejorconsalud.com/wp-content/themes/base-deploy/assets/img/about-us/no_profile.png"
+                  }
+                  alt="Author"
+                />
+                <PostAuthorName>{response.author.name}</PostAuthorName>
+
+                <PostDateModified>
+                  {" "}
+                  • Modified {new Date(response.modified).toLocaleDateString()}
+                </PostDateModified>
               </PostDateSection>
-              <CategoryBullet data={postData.categories}  />
+              <CategoryBullet data={response.categories} />
             </PostTopInfoSection>
-          
-            {postData.featured_media.thumbnail 
-              ? <PostThumbnail src={postData.featured_media.thumbnail} alt="" />
-              : null}
 
-            <PostContent>
-              {parse(postData.content)}
-            </PostContent>
+            {response.featured_media.thumbnail !== null &&
+            response.featured_media.thumbnail !== undefined ? (
+              <PostThumbnail src={response.featured_media.thumbnail} alt="" />
+            ) : null}
 
-            <PostTags>Tags: {postData.tags.length !== 0 ? <CategoryBullet data={postData.tags} /> : ''} </PostTags>
-            {
-              postData.bibliography 
-              ? <PostBibliography>Bibliography: {parse(postData.bibliography)}</PostBibliography>
-              : null
-            }
-            
+            <PostContent>{parse(response.content)}</PostContent>
+
+            <PostTags>
+              Tags:{" "}
+              {response.tags.length !== 0 ? (
+                <CategoryBullet data={response.tags} />
+              ) : (
+                ""
+              )}{" "}
+            </PostTags>
+            {response.bibliography ? (
+              <PostBibliography>
+                Bibliography: {parse(response.bibliography)}
+              </PostBibliography>
+            ) : null}
           </PostContainer>
 
           <PostAuthorProfileContainer>
-            <div style={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row'}}>
-              <PostAuthorProfilePicture src={postData.author.picture ? postData.author.picture : 'https://beta.mejorconsalud.com/wp-content/themes/base-deploy/assets/img/about-us/no_profile.png'} alt={postData.title} alt={postData.title} />
-              <div style={{display: 'flex', alignItems: 'flex-start', flexDirection: 'column'}}>
-                <PostAuthorProfileName>{postData.author.name}</PostAuthorProfileName>
-                <PostAuthorProfileJob>{postData.author.profession}</PostAuthorProfileJob>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                flexDirection: "row",
+              }}
+            >
+              <PostAuthorProfilePicture
+                src={
+                  response.author.picture
+                    ? response.author.picture
+                    : "https://beta.mejorconsalud.com/wp-content/themes/base-deploy/assets/img/about-us/no_profile.png"
+                }
+                alt="Thumbnail"
+                alt="Thumbnail"
+              />
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  flexDirection: "column",
+                }}
+              >
+                <PostAuthorProfileName>
+                  {response.author.name}
+                </PostAuthorProfileName>
+                <PostAuthorProfileJob>
+                  {response.author.profession}
+                </PostAuthorProfileJob>
               </div>
             </div>
-            
-              {postData.author.description !== "" ? <PostAuthorProfileDescription>{parse(postData.author.description)}</PostAuthorProfileDescription> : ''}
-        
+
+            {response.author.description !== "" ? (
+              <PostAuthorProfileDescription>
+                {parse(response.author.description)}
+              </PostAuthorProfileDescription>
+            ) : (
+              ""
+            )}
           </PostAuthorProfileContainer>
-
         </PostSingleGrid>
-      : <Loading>Carregando...</Loading>
-
-      }
-      
-
+        
     </Container>
-  )
-
+  );
 }
