@@ -5,12 +5,12 @@ const MAX_ITENS = 9;
 const MAX_LEFT = (MAX_ITENS - 1) / 2;
 
 //Referência https://www.youtube.com/watch?v=v91BLoapVDw
-export default function Pagination({limit, total, offset, setOffset, actualPage}) {
+export default function Pagination({limit, total, offset, setOffset, actualPage, pagesApi}) {
   
   const currentPage = offset ? (offset / limit) + 1 : 1;
-  const pages = Math.ceil(total / limit);
+  const pages = pagesApi;
   const first = Math.max(currentPage - MAX_LEFT, 1);
-
+  
   function onPageChange(page){
     setOffset((page - 1) * limit);
     actualPage(page);
@@ -19,14 +19,14 @@ export default function Pagination({limit, total, offset, setOffset, actualPage}
   return (
     <StyledUl>
 
-      {/* <li>
+      <li>
         <StyledPaginationButton 
           onClick={() => onPageChange(1)}
           disabled={currentPage === 1}
         >
           Primeiro
         </StyledPaginationButton>
-      </li> */}
+      </li>
 
       <li>
         <StyledPaginationButton 
@@ -60,14 +60,14 @@ export default function Pagination({limit, total, offset, setOffset, actualPage}
         </StyledPaginationButton>
       </li>
 
-      {/* <li>
+      <li>
         <StyledPaginationButton
           onClick={() => onPageChange(total)}
           disabled={currentPage === total}
         >
           Último
         </StyledPaginationButton>
-      </li> */}
+      </li>
 
     </StyledUl>
   )

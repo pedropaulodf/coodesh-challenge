@@ -226,26 +226,31 @@ export default function Single({response}) {
 
             <PostTopInfoSection>
               <PostDateSection>
-                <PostDatePublished>
-                  {new Date(response.published).toLocaleDateString()}
-                </PostDatePublished>
+                <div style={{marginRight: '10px'}}>
+                  <PostDatePublished>
+                    {new Date(response.published).toLocaleDateString()}
+                  </PostDatePublished>
 
-                <PostAuthorPicture
-                  src={
-                    response.author.picture
-                      ? response.author.picture
-                      : "https://beta.mejorconsalud.com/wp-content/themes/base-deploy/assets/img/about-us/no_profile.png"
-                  }
-                  alt="Author"
-                />
-                <PostAuthorName>{response.author.name}</PostAuthorName>
+                  <PostDateModified>
+                    Modified {new Date(response.modified).toLocaleDateString()}
+                  </PostDateModified>
+                </div>
+                <div style={{display: 'flex', alignItems: 'center', marginRight: '10px'}}>
+                  <PostAuthorPicture
+                    src={
+                      response.author.picture !== ''
+                        ? response.author.picture
+                        : "https://beta.mejorconsalud.com/wp-content/themes/base-deploy/assets/img/about-us/no_profile.png"
+                    }
+                    alt="Author"
+                  />
+                  <PostAuthorName>{response.author.name}</PostAuthorName>
+                </div>
 
-                <PostDateModified>
-                  {" "}
-                  • Modified {new Date(response.modified).toLocaleDateString()}
-                </PostDateModified>
               </PostDateSection>
-              <CategoryBullet data={response.categories} />
+              <div style={{marginTop: '10px', marginBottom: '-6px'}}>
+                <CategoryBullet data={response.categories} />
+              </div>
             </PostTopInfoSection>
 
             {response.featured_media.thumbnail !== null &&

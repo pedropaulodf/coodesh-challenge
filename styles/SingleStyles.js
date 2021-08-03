@@ -4,7 +4,7 @@ export const PostSingleGrid = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 0px 50px;
-
+  margin-top: -20px;
   
   @media(min-width: 1024px) {
     
@@ -39,6 +39,7 @@ export const PostContainer = styled.div`
   border: 2px solid #e2e2e2;
   background-color: #ffffff;
   border-radius: 8px;
+  word-break: break-word;
 `;
 
 export const PostTitle = styled.h1`
@@ -60,6 +61,11 @@ export const PostTopInfoSection= styled.div`
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
+
+  @media(max-width: 700px) {
+    flex-direction: column;
+  }
+
 `;
 
 export const PostDateSection = styled.div`
@@ -68,15 +74,22 @@ export const PostDateSection = styled.div`
   justify-content: flex-start;
   flex-direction: row;
   align-items: center;
+
+  @media(max-width: 700px) {
+    width: 100%;
+    justify-content: space-between;
+  }
+
 `;
 
 export const PostDatePublished = styled.p`
-  font-size: .7em;
+  font-size: 0.7em;
+  font-weight: bold;
 `;
 
 export const PostDateModified = styled.p`
-  font-size: .6em;
-  margin-left: 8px;
+  font-size: 0.5em;
+  margin-left: 0px;
   color: #C9C9C9;
 `;
 
@@ -137,6 +150,11 @@ export const PostContent = styled.div`
 
   li{
     margin: 10px 0px;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
 
 `;

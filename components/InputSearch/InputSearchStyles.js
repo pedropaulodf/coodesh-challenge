@@ -20,4 +20,8 @@ export const StyledButton = styled.button`
   position: absolute;
   margin-left: -50px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #c5c5c5;
+  }
 `;

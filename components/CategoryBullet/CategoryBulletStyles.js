@@ -10,8 +10,9 @@ export const BulletContainer = styled.div`
   background-color: #f4f4f4;
   border-radius: 7px;
   font-size: 0.7em;
-  width: fit-content;
+  width: max-content;
   margin-left: 4px;
+  
   /* cursor: pointer;
   &:hover {
     background-color: #d0d0d0;

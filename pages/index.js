@@ -74,6 +74,7 @@ export default function Home() {
     // O que eu passar aqui, ele vai virar SEO
     await api.get("posts", searchParams)
     .then((response) => {
+      console.log(response.data);
       setAllPosts(response.data);
       setLoading(false);
       return;
@@ -147,15 +148,17 @@ export default function Home() {
 
       {!loading 
       ? allPosts.data.length === 0 
-        ? (<NoPostsFindedMessage>Nenhum post encontrado! #2</NoPostsFindedMessage>) 
+        ? (<NoPostsFindedMessage>No posts finded!</NoPostsFindedMessage>) 
         : (
           <>
-  
-            <p style={{textAlign: 'right'}}>{allPosts.data.length === 1 ? '1 post finded' : `${allPosts.data.length} posts finded` }</p>
+            <div style={{display: 'flex',justifyContent: 'flex-end',marginTop: '10px',marginBottom: '-10px'}}>
+              <QttyPostsFinded style={{textAlign: 'right'}}>{allPosts.size === 1 ? '1 post finded' : `${allPosts.size} posts finded` }</QttyPostsFinded>
+            </div>
 
             <Pagination 
               limit={PAGINATION_LIMIT} 
               total={allPosts.pages} 
+              pagesApi={allPosts.pages} 
               offset={offset}
               setOffset={setOffset}
               actualPage={handlePaginationClick}
@@ -176,6 +179,7 @@ export default function Home() {
             <Pagination 
               limit={PAGINATION_LIMIT} 
               total={allPosts.pages} 
+              pagesApi={allPosts.pages} 
               offset={offset}
               setOffset={setOffset}
               actualPage={handlePaginationClick}
@@ -183,7 +187,7 @@ export default function Home() {
             
           </>
         )
-      : (<Loading>Carregando...</Loading>) }
+      : (<Loading>Loading...</Loading>) }
 
     </Container>
   );
@@ -215,7 +219,8 @@ const GridPosts = styled.div`
 const HeadTitle = styled.h1`
   font-size: 2em;
   border-left: 5px solid #cccccc;
-  padding-left: 10px;
+  padding: 10px 0px 10px 10px;
+  background: linear-gradient(  90deg  ,rgb(232 232 232) 0%,rgba(255,255,255,0) 100%);
 `;
 
 const NoPostsFindedMessage = styled.h3`
@@ -223,4 +228,13 @@ const NoPostsFindedMessage = styled.h3`
   text-align: center;
   margin-top: 50px;
   color: #bbbbbb;
+`;
+
+const QttyPostsFinded = styled.p`
+  text-align: right;
+  border: 1.6px dashed #afafaf;
+  width: fit-content;
+  padding: 3px 5px;
+  border-radius: 6px;
+  font-size: 0.8em;
 `;
