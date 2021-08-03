@@ -28,7 +28,7 @@ export default function PostCard({postData, onCardButtonClick}) {
         pathname: `/single/${postData.id}`,
         query: { slug: postData.slug }
         }} >
-          <a><StyledCardThumbnail src={postData.featured_media.thumbnail} alt={postData.title} /></a>
+          <a><StyledCardThumbnail src={postData.featured_media.medium} alt={postData.title} /></a>
         </Link>
       : null}
 

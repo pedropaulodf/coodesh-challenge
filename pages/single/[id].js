@@ -254,9 +254,9 @@ export default function Single({response}) {
               </div>
             </PostTopInfoSection>
 
-            {response.featured_media.thumbnail !== null &&
-            response.featured_media.thumbnail !== undefined ? (
-              <PostThumbnail src={response.featured_media.thumbnail} alt="" />
+            {response.featured_media["1536x1536"] !== null &&
+            response.featured_media["1536x1536"] !== undefined ? (
+              <PostThumbnail src={response.featured_media["1536x1536"]} alt="" />
             ) : null}
 
             <PostContent>{parse(response.content)}</PostContent>
