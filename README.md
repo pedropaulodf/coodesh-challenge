@@ -1,7 +1,7 @@
 # 💻 Coodesh Front-end Challeng
 
 Challenge de um projeto front-end para a empresa fictícia Translation, Inc. Consiste na criação de uma home e um blog com otimizações para SEO.
-[Veja o projeto online](https://coodesh-challenge-pedropaulodf.vercel.app/)
+[Veja o projeto online](https://coodesh-front-end-challenge.vercel.app/)
 
 ## ✨ Tecnologias
 
