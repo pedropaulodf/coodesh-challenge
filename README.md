@@ -3,6 +3,17 @@
 Challenge de um projeto front-end para a empresa fictícia Translation, Inc. Consiste na criação de uma home e um blog com otimizações para SEO.
 [Veja o projeto online](https://coodesh-challenge-pedropaulodf.vercel.app/)
 
+## ✨ Tecnologias
+
+-   [x] React.js
+-   [x] Next.js
+-   [x] Node.js
+-   [x] Axios
+-   [x] Javascript
+-   [x] Styled Components
+-   [x] react-switch
+-   [x] Figma
+
 ## 🛠️ Como instalar e usar o projeto (instruções) 
 
 O projeto usa o pacote Node.js e o Next.js.
@@ -25,14 +36,9 @@ Finalizado o npm install, rode o comando: `npm run dev` para ver o projeto rodan
 
 O projeto roda na porta `localhost:9045`
 
-
 ## 🛠️ Nextjs
 Algum problema com o Next.js, veja esta página: [Getting Started do Next.js](https://nextjs.org/docs)
-
 
 ## .gitignore
 
 Nada que afete a instalação e deploy do projeto está aqui. :)
-
-
-
