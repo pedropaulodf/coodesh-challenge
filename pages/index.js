@@ -74,7 +74,6 @@ export default function Home() {
     // O que eu passar aqui, ele vai virar SEO
     await api.get("posts", searchParams)
     .then((response) => {
-      console.log(response.data);
       setAllPosts(response.data);
       setLoading(false);
       return;
