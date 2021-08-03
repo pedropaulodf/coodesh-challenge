@@ -45,5 +45,7 @@ export const StyledCardSubText = styled.p`
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 6;
+  word-break: break-word;
+
 `;

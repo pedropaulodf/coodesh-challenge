@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import Button from '../Button/Button'
+import Link from 'next/link'
+import parse from "html-react-parser";
+
 import CategoryBullet from '../CategoryBullet/CategoryBullet'
+import Button from '../Button/Button'
 
 import { StyledCardContainer, StyledCardTitle, StyledCardSubText, StyledCardDateCategory, StyledCardThumbnail, StyledCardDate, } from './PostCardStyles';
-
-import Link from 'next/link'
-
 
 export default function PostCard({postData, onCardButtonClick}) {
   
@@ -41,7 +41,7 @@ export default function PostCard({postData, onCardButtonClick}) {
 
       <StyledCardTitle>{postData.title}</StyledCardTitle>
 
-      <StyledCardSubText>{postData.headline}</StyledCardSubText>
+      <StyledCardSubText>{parse(postData.excerpt)}</StyledCardSubText>
 
       <Link href={{
         pathname: `/single/${postData.id}`,

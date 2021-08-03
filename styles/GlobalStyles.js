@@ -32,4 +32,7 @@ export const GlobalStyle = createGlobalStyle`
     flex-direction: row;
   }
   
+  .hide{
+    display: none;
+  }
 `;

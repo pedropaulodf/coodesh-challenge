@@ -51,7 +51,9 @@ export const PostTitle = styled.h1`
 export const PostHeadline = styled.p`
   font-size: 1em;
   margin-bottom: 24px;
-  color: #a0a0a0;
+  color: rgb(160, 160, 160);
+  border-left: 6px solid #c5c5c5;
+  padding-left: 7px;
 `;
 
 export const PostTopInfoSection= styled.div`

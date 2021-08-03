@@ -24,7 +24,7 @@ export default function Pagination({limit, total, offset, setOffset, actualPage,
           onClick={() => onPageChange(1)}
           disabled={currentPage === 1}
         >
-          Primeiro
+          First
         </StyledPaginationButton>
       </li>
 
@@ -33,17 +33,17 @@ export default function Pagination({limit, total, offset, setOffset, actualPage,
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          Anterior
+          {`<`}
         </StyledPaginationButton>
       </li>
 
       {Array.from({ length: Math.min(MAX_ITENS, pages) })
       .map((_, index) => index + first)
       .map((page) => (
-        <li key={page}>
+        <li key={page} className={`${page > total ? 'hide ' : '' }`}>
           <StyledPaginationButton 
             onClick={() => onPageChange(page)}
-            className={page === currentPage ? 'active': ''}
+            className={`${page === currentPage ? 'active ': ''}`}
             disabled={page === currentPage ? true : page > total ? true : false}
           >
             {page}
@@ -56,7 +56,7 @@ export default function Pagination({limit, total, offset, setOffset, actualPage,
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === pages || currentPage === total}
         >
-          Próximo
+          {`>`}
         </StyledPaginationButton>
       </li>
 
@@ -65,7 +65,7 @@ export default function Pagination({limit, total, offset, setOffset, actualPage,
           onClick={() => onPageChange(total)}
           disabled={currentPage === total}
         >
-          Último
+          Last
         </StyledPaginationButton>
       </li>
 
