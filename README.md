@@ -12,7 +12,7 @@ Challenge de um projeto front-end para a empresa fictícia Translation, Inc. Con
 -   [x] Javascript
 -   [x] Styled Components
 -   [x] react-switch
--   [x] Figma
+-   [x] [Figma](https://www.figma.com/file/D8LqvUJbPD4lDKKm42bqHr/Coodesh-Front-end-Challenge?node-id=0%3A1)
 
 ## 🛠️ Como instalar e usar o projeto (instruções) 
 
