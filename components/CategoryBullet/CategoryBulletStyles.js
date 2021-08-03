@@ -12,6 +12,7 @@ export const BulletContainer = styled.div`
   font-size: 0.7em;
   width: max-content;
   margin-left: 4px;
+  cursor: default;
   
   /* cursor: pointer;
   &:hover {

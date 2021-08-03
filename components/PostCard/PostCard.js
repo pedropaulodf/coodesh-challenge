@@ -24,7 +24,12 @@ export default function PostCard({postData, onCardButtonClick}) {
 
     {postData.featured_media
       ?
-        <StyledCardThumbnail src={postData.featured_media.thumbnail} alt={postData.title} />
+        <Link href={{
+        pathname: `/single/${postData.id}`,
+        query: { slug: postData.slug }
+        }} >
+          <a><StyledCardThumbnail src={postData.featured_media.thumbnail} alt={postData.title} /></a>
+        </Link>
       : null}
 
       <StyledCardDateCategory>
@@ -43,7 +48,7 @@ export default function PostCard({postData, onCardButtonClick}) {
         query: { slug: postData.slug }
         }} >
         <a>
-          <Button text="read more" onButtonClick={() => handleButtonClick(postData.id)}/>
+          <Button text="read all post" onButtonClick={() => handleButtonClick(postData.id)}/>
         </a>
       </Link>
 

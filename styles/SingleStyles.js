@@ -96,6 +96,7 @@ export const PostDateModified = styled.p`
 export const PostAuthorPicture = styled.img`
   border-radius: 50px;
   width: 30px;
+  height: 30px;
   border: 2px solid #e0e0e0;
   margin-left: 8px;
   margin-right: 8px;
@@ -159,16 +160,22 @@ export const PostContent = styled.div`
 
 `;
 
-export const PostTags = styled.p`
+export const PostTagsWraper = styled.div`
   display: flex;
-  font-size: 0.9em;
-  font-weight: bold;
   margin-bottom: 30px;
   margin-top: 40px;
   border-top: 2px dashed #d2d2d2;
   border-bottom: 2px dashed #d2d2d2;
   padding: 15px 0px;
   align-items: center;
+
+`;
+
+export const PostTags = styled.p`
+  font-size: 0.9em;
+  font-weight: bold;
+  min-width: fit-content;
+  margin-right: 6px;
 `;
 
 export const PostBibliography = styled.p`

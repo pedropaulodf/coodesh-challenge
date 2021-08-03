@@ -147,7 +147,7 @@ export default function Home() {
 
       {!loading 
       ? allPosts.data.length === 0 
-        ? (<NoPostsFindedMessage>No posts finded!</NoPostsFindedMessage>) 
+        ? searchParams.params.search !== undefined && searchParams.params.search.length ? <NoPostsFindedMessage>There are no articles related to the search term</NoPostsFindedMessage> : <NoPostsFindedMessage>No posts finded!</NoPostsFindedMessage> 
         : (
           <>
             <div style={{display: 'flex',justifyContent: 'flex-end',marginTop: '10px',marginBottom: '-10px'}}>

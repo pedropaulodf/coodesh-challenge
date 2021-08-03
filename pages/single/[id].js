@@ -30,6 +30,7 @@ import {
   PostAuthorProfileJob,
   PostTags,
   PostBibliography,
+  PostTagsWraper,
 } from "../../styles/SingleStyles";
 import Head from "next/head";
 
@@ -260,14 +261,17 @@ export default function Single({response}) {
 
             <PostContent>{parse(response.content)}</PostContent>
 
-            <PostTags>
-              Tags:{" "}
+            <PostTagsWraper>
+              <PostTags>
+                Tags:
+              </PostTags>
               {response.tags.length !== 0 ? (
-                <CategoryBullet data={response.tags} />
-              ) : (
-                ""
-              )}{" "}
-            </PostTags>
+                  <CategoryBullet data={response.tags} />
+                ) : (
+                  ""
+                )}
+            </PostTagsWraper>
+
             {response.bibliography ? (
               <PostBibliography>
                 Bibliography: {parse(response.bibliography)}

@@ -6,6 +6,11 @@ export const StyledCardContainer = styled.div`
   border: 2px solid #EDEDED;
   background-color: #F9F9F9;
   border-radius: 8px;
+  position: relative;
+
+  &:hover { 
+    border: 2px solid #d6d6d6;
+  }
 `;
 
 export const StyledCardDateCategory = styled.div`
@@ -34,7 +39,7 @@ export const StyledCardTitle = styled.h2`
 
 export const StyledCardSubText = styled.p`
   font-size: 1em;
-  margin-bottom: 18px;
+  margin-bottom: 58px;
   width: 100%;
   line-height: 1.2em;
   overflow: hidden;

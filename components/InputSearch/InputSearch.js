@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { StyledInput, StyledButton } from './InputSearchStyles'
 
@@ -17,7 +17,7 @@ export default function InputSearch({onTextChange, onButtonSearchClick}) {
 
   return (
     <>
-      <StyledInput type="text" placeholder="Search here:" defaultValue={inputVal} onChange={v => handleTextChange(v.target.value)}/>
+      <StyledInput type="text" placeholder="Search here:" id="iptSearch" defaultValue={inputVal} onChange={v => handleTextChange(v.target.value)}/>
       <StyledButton onClick={handleButtonClick}>
         <img src="../images/search.png" alt="Do search" width="20px"/>
       </StyledButton>
