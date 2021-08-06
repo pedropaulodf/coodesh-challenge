@@ -36,25 +36,15 @@ import Head from "next/head";
 
 export async function getStaticPaths() {
 
-  // const paths = [];
-  // for (let i = 0; i <= 50000; i++) {
-  //   paths.push({ params: { id: String(i) } });
-  // }
-
   return {
     paths: [
       {
         params: {
           id: '265206'
         }
-      },
-      {
-        params: {
-          id: '410057'
-        }
       }
     ],
-    fallback: 'blocking', // See the "fallback" section below
+    fallback: 'blocking',
   };
 }
 

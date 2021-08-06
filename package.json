@@ -7,7 +7,8 @@
     "dev": "next dev -p 9045",
     "build": "next build",
     "start": "next start -p 9045",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap --config next-sitemap.config.js"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.3.1",
-    "babel-plugin-styled-components": "^1.13.2"
+    "babel-plugin-styled-components": "^1.13.2",
+    "next-sitemap": "^1.6.148"
   }
 }

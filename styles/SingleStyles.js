@@ -113,8 +113,9 @@ export const PostThumbnail = styled.img`
   height: 400px;
   border-radius: 10px;
   margin-bottom: 20px;
-  box-shadow: 3px 6px 13px 0px #cccccc;
+  box-shadow: 6px 8px 0px 0px #cccccc;
   object-fit: cover;
+  border: 1px solid #bfbfbf;
   /* background-size: cover; */
   /* background-size: contain; */
 `;
