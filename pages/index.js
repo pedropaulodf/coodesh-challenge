@@ -6,8 +6,8 @@ import Header from "../components/Header/Header";
 import PostCard from "../components/PostCard/PostCard";
 
 import styled from "styled-components";
-
 import api from "../services/api";
+
 import Pagination from "../components/Pagination/Pagination";
 import Loading from "../components/Loading/Loading";
 import Head from "next/head";

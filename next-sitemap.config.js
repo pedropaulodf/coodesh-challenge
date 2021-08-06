@@ -1,6 +1,10 @@
-const urlSite = "https://coodesh-challenge-pedropaulodf.vercel.app/";
+const siteUrlComplete = require("./utils/siteUrlComplete");
 
 module.exports = {
-  siteUrl: urlSite,
-  generateRobotsTxt: true
-}
+  siteUrl: siteUrlComplete,
+  generateRobotsTxt: true,
+  robotsTxtOptions: {
+    policies: [{ userAgent: "*", allow: "/" }],
+    additionalSitemaps: [`${siteUrlComplete}/sitemap.xml`, `${siteUrlComplete}/server-sitemap.xml`],
+  },
+};
