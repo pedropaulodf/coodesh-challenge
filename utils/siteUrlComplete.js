@@ -1,1 +1,1 @@
-module.exports = "https://coodesh-challenge-pedropaulodf.vercel.app";
+module.exports = "https://coodesh-front-end-challenge.vercel.app";
