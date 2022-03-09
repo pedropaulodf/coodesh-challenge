@@ -1,7 +1,7 @@
 # 💻 Coodesh Front-end Challeng
 
 <p align="center">
-  <img alt="Tabela responsiva" src=".github/img.jpg" width="100%">
+  <img alt="Print do projeto" src=".github/img.jpg" width="100%">
 </p>
 
 [<img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">](https://coodesh-front-end-challenge.vercel.app/)
