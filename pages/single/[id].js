@@ -253,7 +253,7 @@ export default function Single({ response }) {
               response?.featured_media !== null &&
               response?.featured_media["1536x1536"] !== undefined
                 ? response?.featured_media["1536x1536"]
-                : `https://textoverimage.moesif.com/image?x_align=center&y_align=middle&margin=32&text=${response.title}&image_url=https://img.freepik.com/fotos-gratis/plano-de-fundo-texturizado-cinza_24972-763.jpg?w=1380&t=st=1647520906~exp=1647521506~hmac=c8c53c315910a37ec554c3a56c70c8d129ce72f3bebc74242305d3909377db7b`
+                : `https://textoverimage.moesif.com/image?x_align=center&y_align=middle&margin=32&text_size=64&text=${response.title}&image_url=https://img.freepik.com/fotos-gratis/plano-de-fundo-texturizado-cinza_24972-763.jpg?w=1380&t=st=1647520906~exp=1647521506~hmac=c8c53c315910a37ec554c3a56c70c8d129ce72f3bebc74242305d3909377db7b`
             }
             alt=""
           />
