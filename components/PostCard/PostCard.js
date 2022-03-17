@@ -37,7 +37,7 @@ export default function PostCard({postData, onCardButtonClick}) {
       <StyledCardDateCategory>
 
         <StyledCardDate>{dateFormatted}</StyledCardDate>
-        <CategoryBullet data={postData.categories} quantityFirstLetters={4} />
+        <CategoryBullet data={postData.categories} />
 
       </StyledCardDateCategory>
 
