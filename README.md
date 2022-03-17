@@ -4,8 +4,6 @@
   <img alt="Print do projeto" src=".github/img.jpg" width="100%">
 </p>
 
-[<img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">](https://coodesh-front-end-challenge.vercel.app/)
-
 ## ➡️ Sobre
 Challenge de um projeto front-end para a empresa fictícia Translation, Inc. Consiste na criação de uma home e um blog com otimizações para SEO.
 
@@ -13,7 +11,8 @@ Projeto criado com Next.js e Styled-components. O projeto possui alta otimizaç�
 
 Possui um buscador de posts e filtro de posts mais importantes. Todo o blog é responsivo.
 
-[Veja o projeto online](https://coodesh-front-end-challenge.vercel.app/)
+### Veja o projeto online
+[<img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">](https://coodesh-front-end-challenge.vercel.app/)
 
 ## ✨ Tecnologias
 
