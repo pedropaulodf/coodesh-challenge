@@ -15,7 +15,7 @@ import Head from "next/head";
 const PAGINATION_LIMIT = 12;
 
 // export async function getStaticProps(context) {
-  
+
 //   // O que eu passar aqui, ele vai virar SEO
 //   const response = await api.get("posts", { params: { page: '1' }})
 //     .then((response) => {
@@ -35,87 +35,100 @@ const PAGINATION_LIMIT = 12;
 // }
 
 export default function Home() {
-  
   const [allPosts, setAllPosts] = useState();
   const [loading, setLoading] = useState(true);
+  const [isErrorOcurred, setIsErrorOcurred] = useState({
+    status: false,
+    message: "",
+  });
 
   const [offset, setOffset] = useState(0);
   const [actualPage, setActualPage] = useState(1);
 
-  const [searchParams, setsearchParams] = useState({params: { page: '1'}});
+  const [searchParams, setsearchParams] = useState({ params: { page: "1" } });
   const [searchText, setSearchText] = useState(false);
   const [mostRelevantPosts, setMostRelevantPosts] = useState(false);
 
   const metasData = {
     title: "Home",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vestibulum vel velit sit amet scelerisque. Suspendisse in vestibulum sapien. Suspendisse nisl ipsum, hendrerit in odio ac, bibendum luctus nulla."
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vestibulum vel velit sit amet scelerisque. Suspendisse in vestibulum sapien. Suspendisse nisl ipsum, hendrerit in odio ac, bibendum luctus nulla.",
   };
 
-
-  useEffect(()=> {
+  useEffect(() => {
     setAllPosts();
     setLoading(false);
-  },[])
+  }, []);
 
   useEffect(() => {
-    searchPosts()
-  }, [searchParams])
+    searchPosts();
+  }, [searchParams]);
 
   // useEffect(() => {
   //   console.log(actualPage);
   // }, [actualPage])
 
-  async function searchPosts(params){
-
+  async function searchPosts(params) {
     setLoading(true);
 
     // console.log(searchParams);
 
     // O que eu passar aqui, ele vai virar SEO
-    await api.get("posts", searchParams)
-    .then((response) => {
-      setAllPosts(response.data);
-      setLoading(false);
-      return;
-    })
-    .catch((error) => {
-      console.log(error);
-      return false;
-    });
-
+    await api
+      .get("posts", searchParams)
+      .then((response) => {
+        setIsErrorOcurred({
+          status: false,
+          message: "",
+        });
+        setAllPosts(response.data);
+        setLoading(false);
+        return;
+      })
+      .catch((error) => {
+        console.log("error", error.message);
+        setIsErrorOcurred({
+          status: true,
+          message: error.message,
+        });
+        setLoading(false);
+        return false;
+      });
   }
 
-  function handleCardButtonClick(postId){
+  function handleCardButtonClick(postId) {
     // console.log('card-button-clicked', postId);
   }
 
-  function handleSearch(search){
-    
-    if(search.error){
-      setSearchText('');
+  function handleSearch(search) {
+    if (search.error) {
+      setSearchText("");
       console.log(search.error);
       return;
     }
-    
-    if(search.searchString.length > 0){
-      setsearchParams({params: {...searchParams.params, search: search.searchString }});
+
+    if (search.searchString.length > 0) {
+      setsearchParams({
+        params: { ...searchParams.params, search: search.searchString },
+      });
     } else {
-      delete searchParams.params.search
-      setsearchParams({params: {...searchParams.params }});
+      delete searchParams.params.search;
+      setsearchParams({ params: { ...searchParams.params } });
     }
 
     setSearchText(search.searchString);
     // searchPosts();
   }
 
-  function handleSwitchAction(switchChecked){
-    
-    if(switchChecked){
-      setsearchParams({params: {...searchParams.params, orderby: 'relevance' }});
+  function handleSwitchAction(switchChecked) {
+    if (switchChecked) {
+      setsearchParams({
+        params: { ...searchParams.params, orderby: "relevance" },
+      });
       // searchPosts({params: {...searchParams.params, orderby: 'relevance' }});
     } else {
-      delete searchParams.params.orderby
-      setsearchParams({params: {...searchParams.params }});
+      delete searchParams.params.orderby;
+      setsearchParams({ params: { ...searchParams.params } });
     }
     setMostRelevantPosts(switchChecked);
     // searchPosts({params: {...searchParams.params }});
@@ -125,8 +138,8 @@ export default function Home() {
   //   searchPosts(search);
   // }
 
-  function handlePaginationClick(page){
-    setsearchParams({params: {...searchParams.params, page: page }});
+  function handlePaginationClick(page) {
+    setsearchParams({ params: { ...searchParams.params, page: page } });
     setActualPage(page);
   }
 
@@ -134,30 +147,72 @@ export default function Home() {
     <Container>
       <GlobalStyles />
       {/* <HeaderSEO metasData={metasData}/> */}
-      <Header searchData={handleSearch} switchAction={handleSwitchAction}/>
+      <Header searchData={handleSearch} switchAction={handleSwitchAction} />
 
       <Head>
-        <title>{metasData.title ? `${metasData.title} | Translation, Inc`: 'Translation, Inc'}</title>
-        <meta property="og:title" content={metasData.title ? `${metasData.title} | Translation, Inc`: 'Translation, Inc'} />
+        <title>
+          {metasData.title
+            ? `${metasData.title} | Translation, Inc`
+            : "Translation, Inc"}
+        </title>
+        <meta
+          property="og:title"
+          content={
+            metasData.title
+              ? `${metasData.title} | Translation, Inc`
+              : "Translation, Inc"
+          }
+        />
         <meta name="description" content={metasData.description} />
-        <link rel="icon" type="image/png" sizes="38x38" href="../images/favicon.png"/>
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="38x38"
+          href="../images/favicon.png"
+        />
       </Head>
 
       <HeadTitle>Welcome to the Translation, Inc Blog!</HeadTitle>
 
-      {!loading 
-      ? allPosts.data.length === 0 
-        ? searchParams.params.search !== undefined && searchParams.params.search.length ? <NoPostsFindedMessage>There are no articles related to the search term</NoPostsFindedMessage> : <NoPostsFindedMessage>No posts finded!</NoPostsFindedMessage> 
-        : (
+      {!loading ? (
+        isErrorOcurred.status ? (
           <>
-            <div style={{display: 'flex',justifyContent: 'flex-end',marginTop: '10px',marginBottom: '-10px'}}>
-              <QttyPostsFinded style={{textAlign: 'right'}}>{allPosts.size === 1 ? '1 post finded' : `${allPosts.size} posts finded` }</QttyPostsFinded>
+            <ErrorMessage>
+              <ErrorMessageIcon>🙁</ErrorMessageIcon>
+              Houve um erro ao carregar os posts!
+            </ErrorMessage>
+            <ErrorMessage>Erro: {isErrorOcurred.message}</ErrorMessage>
+          </>
+        ) : allPosts.data.length === 0 ? (
+          searchParams.params.search !== undefined &&
+          searchParams.params.search.length ? (
+            <NoPostsFindedMessage>
+              There are no articles related to the search term
+            </NoPostsFindedMessage>
+          ) : (
+            <NoPostsFindedMessage>No posts finded!</NoPostsFindedMessage>
+          )
+        ) : (
+          <>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginTop: "10px",
+                marginBottom: "-10px",
+              }}
+            >
+              <QttyPostsFinded style={{ textAlign: "right" }}>
+                {allPosts.size === 1
+                  ? "1 post finded"
+                  : `${allPosts.size} posts finded`}
+              </QttyPostsFinded>
             </div>
 
-            <Pagination 
-              limit={PAGINATION_LIMIT} 
-              total={allPosts.pages} 
-              pagesApi={allPosts.pages} 
+            <Pagination
+              limit={PAGINATION_LIMIT}
+              total={allPosts.pages}
+              pagesApi={allPosts.pages}
               offset={offset}
               setOffset={setOffset}
               actualPage={handlePaginationClick}
@@ -166,60 +221,63 @@ export default function Home() {
             <GridPosts>
               {allPosts.data.map((post) => {
                 return (
-                  <PostCard 
-                  key={post.id} 
-                  postData={post} 
-                  onCardButtonClick={handleCardButtonClick}
+                  <PostCard
+                    key={post.id}
+                    postData={post}
+                    onCardButtonClick={handleCardButtonClick}
                   />
                 );
               })}
             </GridPosts>
 
-            <Pagination 
-              limit={PAGINATION_LIMIT} 
-              total={allPosts.pages} 
-              pagesApi={allPosts.pages} 
+            <Pagination
+              limit={PAGINATION_LIMIT}
+              total={allPosts.pages}
+              pagesApi={allPosts.pages}
               offset={offset}
               setOffset={setOffset}
               actualPage={handlePaginationClick}
             />
-            
           </>
         )
-      : (<Loading>Loading...</Loading>) }
-
+      ) : (
+        <Loading>Loading...</Loading>
+      )}
     </Container>
   );
 }
 
 const GridPosts = styled.div`
-
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 10px 10px;
   margin-top: 20px;
 
-  @media(min-width: 1024px) {}
-  
-  @media(min-width: 768px) and (max-width: 1023px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  
-  @media(max-width: 767px) {
-    grid-template-columns: 1fr 1fr;
-  }
-  
-  @media(max-width: 460px) {
-    grid-template-columns: 1fr;
+  @media (min-width: 1024px) {
   }
 
+  @media (min-width: 768px) and (max-width: 1023px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 460px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const HeadTitle = styled.h1`
   font-size: 2em;
   border-left: 5px solid #cccccc;
   padding: 10px 0px 10px 10px;
-  background: linear-gradient(  90deg  ,rgb(232 232 232) 0%,rgba(255,255,255,0) 100%);
+  background: linear-gradient(
+    90deg,
+    rgb(232 232 232) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
 `;
 
 const NoPostsFindedMessage = styled.h3`
@@ -236,4 +294,19 @@ const QttyPostsFinded = styled.p`
   padding: 3px 5px;
   border-radius: 6px;
   font-size: 0.8em;
+`;
+
+const ErrorMessage = styled.p`
+  text-align: center;
+  width: 100%;
+  padding: 0.5em 2rem;
+  font-size: 1.3em;
+  color: #ff0000;
+`;
+
+const ErrorMessageIcon = styled.p`
+  text-align: center;
+  width: 100%;
+  padding: 0.5em 0;
+  font-size: 3em;
 `;
